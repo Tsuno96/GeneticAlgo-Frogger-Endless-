@@ -225,9 +225,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1494778324}
   - component: {fileID: 1494778323}
+  - component: {fileID: 1494778325}
   m_Layer: 0
-  m_Name: EGO_lanes
-  m_TagString: Untagged
+  m_Name: EGO_manager
+  m_TagString: LaneGenerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nLanes: 10
   lanePrefab: {fileID: 4179377324453115366, guid: 628d3d8418e767248b801e3374068005, type: 3}
+  lstLanes: []
   vehiculePrefab: {fileID: -7026861226086012600, guid: 81b80a0eff0528a4090da8266faf8f93, type: 3}
 --- !u!4 &1494778324
 Transform:
@@ -261,6 +263,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1494778325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494778322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e0f26197465554a8688051b20d5159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: -960050591811004597, guid: 73ef1068fc57a6c44923064404b2c4b3, type: 3}
 --- !u!1 &1554510195
 GameObject:
   m_ObjectHideFlags: 0
