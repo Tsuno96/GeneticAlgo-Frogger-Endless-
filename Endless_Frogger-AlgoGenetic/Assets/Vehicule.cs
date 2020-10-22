@@ -16,10 +16,6 @@ public class Vehicule : MonoBehaviour
         target = 0;
         StartCoroutine("Move");
     }
-    void Update()
-    {
-
-    }
 
     IEnumerator Move()
     {
@@ -28,6 +24,9 @@ public class Vehicule : MonoBehaviour
             if (target < path.Count)
             {
                 transform.position = path[target].position + Vector3.up;
+                path[target].gameObject.GetComponent<Cube>().empty = false;
+                if(target > 0)
+                    path[target - 1].gameObject.GetComponent<Cube>().empty = true;
                 target++;
             }
             else
