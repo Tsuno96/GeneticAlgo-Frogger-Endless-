@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nLanes: 10
   lanePrefab: {fileID: 4179377324453115366, guid: 628d3d8418e767248b801e3374068005, type: 3}
+  vehiculePrefab: {fileID: -7026861226086012600, guid: 81b80a0eff0528a4090da8266faf8f93, type: 3}
 --- !u!4 &1494778324
 Transform:
   m_ObjectHideFlags: 0

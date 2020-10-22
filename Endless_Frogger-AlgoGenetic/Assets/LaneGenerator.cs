@@ -7,13 +7,21 @@ public class LaneGenerator : MonoBehaviour
     public int nLanes;
     public Lane lanePrefab;
     List<Lane> lstLanes;
+
+    public Vehicule vehiculePrefab;
     // Start is called before the first frame update
     void Awake()
     {
         lstLanes = new List<Lane>();
-        for(int i =0; i< nLanes;i++)
+        Lane start = Instantiate(lanePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        start.name = "Lane0";
+        //start.GetComponent<Spawner>().enabled = false;
+        lstLanes.Add(start);
+
+        for (int i =1; i<= nLanes;i++)
         {
             Lane l = Instantiate(lanePrefab, new Vector3(i, 0, 0), Quaternion.identity);
+            l.InitLane(vehiculePrefab);
             l.name = "Lane" + i;
             lstLanes.Add(l);
         }
