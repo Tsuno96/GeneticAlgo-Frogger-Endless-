@@ -8,5 +8,7 @@ public class Lane : MonoBehaviour
     void Start()
     {
         sens = Random.Range(0, 2);
+
+        GetComponent<Spawner>().SetPath();
     }
 }

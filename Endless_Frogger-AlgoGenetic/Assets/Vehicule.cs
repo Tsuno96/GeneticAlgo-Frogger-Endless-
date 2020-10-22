@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class Vehicule : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<Transform> path;
 
-    // Update is called once per frame
+    public float speed;
+
+    public int target = 0;
+    // Start is called before the first frame update
+
+    private void Start()
+    {
+        target = 0;
+        StartCoroutine("Move");
+    }
     void Update()
     {
-        
+
     }
+
+    IEnumerator Move()
+    {
+        while (true)
+        {
+            if (target < path.Count)
+            {
+                transform.position = path[target].position + Vector3.up;
+                target++;
+            }
+            else
+                Destroy(gameObject);
+
+            yield return new WaitForSeconds(speed);
+        }
+    }
+    
 }
