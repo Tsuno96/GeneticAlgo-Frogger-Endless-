@@ -9,6 +9,8 @@ public class Vehicule : MonoBehaviour
     public float speed;
 
     public int target = 0;
+
+    public int sens;
     // Start is called before the first frame update
 
     private void Start()
@@ -24,9 +26,9 @@ public class Vehicule : MonoBehaviour
             if (target < path.Count)
             {
                 transform.position = path[target].position + Vector3.up;
-                path[target].gameObject.GetComponent<Cube>().empty = false;
+                path[target].gameObject.GetComponent<Cube>().empty = sens;
                 if(target > 0)
-                    path[target - 1].gameObject.GetComponent<Cube>().empty = true;
+                    path[target - 1].gameObject.GetComponent<Cube>().empty = -1;
                 target++;
             }
             else

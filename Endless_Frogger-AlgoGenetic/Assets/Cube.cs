@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    public bool empty;
+    public int empty;
     // Start is called before the first frame update
     void Start()
     {
-        empty = false;
+        empty = -1;
     }
 }

@@ -39,6 +39,7 @@ public class Spawner : MonoBehaviour
                 vehicule = Instantiate(vehiculePrefab, new Vector3(0, -1, 0), vehiculePrefab.transform.rotation);
             vehicule.path = lstPath;
             vehicule.speed = speed;
+            vehicule.sens = GetComponent<Lane>().sens;
             yield return new WaitForSeconds(Random.Range(4f, 20f));
         }
     }
