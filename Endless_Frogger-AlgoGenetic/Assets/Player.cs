@@ -24,27 +24,13 @@ public class Player : MonoBehaviour, System.IComparable<Player>
     // Start is called before the first frame update
     void Start()
     {
+        steps = 0;
         isDead = false;
         lstLanes = GameObject.FindGameObjectWithTag("LaneGenerator").GetComponent<LaneGenerator>().lstLanes;
         //GetNeighbors();
         neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
         StartCoroutine("MakeDecision");
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public int CompareTo(Player comparePlayer)
-    {
-        // A null value means that this object is greater.
-        if (comparePlayer == null)
-            return 1;
-
-        else
-            return this.currentLane.CompareTo(comparePlayer.currentLane);
     }
 
     IEnumerator MakeDecision()
@@ -214,5 +200,18 @@ public class Player : MonoBehaviour, System.IComparable<Player>
         if (other == null) return 0;
 
         return other.currentLane.CompareTo(currentLane);
+    }
+
+
+    public void ResetPlayer()
+    {
+        int z = UnityEngine.Random.Range(0, -10); ;
+        transform.position = new Vector3(0, 1, z);
+        currentCube = -z;
+        currentLane = 0;
+        isDead = false;
+        steps = 0;
+        gameObject.SetActive(true);
+        StartCoroutine("MakeDecision");
     }
 }

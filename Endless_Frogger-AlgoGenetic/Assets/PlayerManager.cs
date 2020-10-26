@@ -1,6 +1,8 @@
 ﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -18,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     public int nBestPlayersSelection;
 
     public List<Player> players;
-    public List<Player> bestPlayers;
+    List<Player> bestPlayers;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -56,15 +58,32 @@ public class PlayerManager : MonoBehaviour
             Player player = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
             player.currentCube = -z;
             player.currentLane = 0;
+            player.name = "Player" + i;
             players.Add(player);
+        }
+    }
+
+
+    void NextGeneration()
+    {
+        nDeadPlayers = 0;
+        players = new List<Player>();
+        foreach(Player p in bestPlayers)
+        {
+            p.ResetPlayer();
         }
     }
 
     void PickBestGen()
     {
-        bestPlayers = players;
         players.Sort();
-        
+        bestPlayers = players.Take(nBestPlayersSelection).ToList();
+        foreach(Player p in players.Skip(nBestPlayersSelection).ToList())
+        {
+            Destroy(p.gameObject);
+        }
+
+        NextGeneration();
 
     }
 

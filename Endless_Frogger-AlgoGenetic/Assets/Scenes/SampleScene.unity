@@ -279,6 +279,8 @@ MonoBehaviour:
   nPlayers: 10
   maxSteps: 200
   nDeadPlayers: 0
+  nBestPlayersSelection: 2
+  players: []
 --- !u!1 &1554510195
 GameObject:
   m_ObjectHideFlags: 0
