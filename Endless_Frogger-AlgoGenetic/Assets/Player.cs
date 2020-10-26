@@ -5,7 +5,7 @@ using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics;
 using System;
 
-public class Player : MonoBehaviour, IComparable<Player>
+public class Player : MonoBehaviour, System.IComparable<Player>
 {
     public int currentLane;
     public int currentCube;
@@ -207,5 +207,12 @@ public class Player : MonoBehaviour, IComparable<Player>
         isDead = true;
         PlayerManager.instance.nDeadPlayers++;
         gameObject.SetActive(false);
+    }
+
+    public int CompareTo(Player other)
+    {
+        if (other == null) return 0;
+
+        return other.currentLane.CompareTo(currentLane);
     }
 }

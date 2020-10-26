@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,11 @@ public class PlayerManager : MonoBehaviour
     public int maxSteps;
 
     public int nDeadPlayers;
-    List<Player> players;
+
+    public int nBestPlayersSelection;
+
+    public List<Player> players;
+    public List<Player> bestPlayers;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -32,7 +37,12 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         if (nDeadPlayers >= nPlayers)
+        {
             Debug.Log("End");
+            PickBestGen();
+        }
+
+
     }
 
     void CreateGeneration()
@@ -49,4 +59,14 @@ public class PlayerManager : MonoBehaviour
             players.Add(player);
         }
     }
+
+    void PickBestGen()
+    {
+        bestPlayers = players;
+        players.Sort();
+        
+
+    }
+
+
 }
