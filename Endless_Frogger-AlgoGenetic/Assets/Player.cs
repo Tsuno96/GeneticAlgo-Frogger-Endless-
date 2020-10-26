@@ -15,12 +15,17 @@ public class Player : MonoBehaviour
     public Matrix<float> inputLayers;
 
     List<Lane> lstLanes;
+
+    NeuralNetwork neuralNetwork;
     // Start is called before the first frame update
     void Start()
     {
         lstLanes = GameObject.FindGameObjectWithTag("LaneGenerator").GetComponent<LaneGenerator>().lstLanes;
         //GetNeighbors();
         StartCoroutine("MakeDecision");
+
+        neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
+
     }
 
     // Update is called once per frame
@@ -36,7 +41,10 @@ public class Player : MonoBehaviour
         {
             GetNeighbors();
 
-            if(inputs[3] == 0)
+            Matrix<float> outputs = neuralNetwork.RunNetwork(inputs);
+            Debug.Log(outputs);
+
+            if (inputs[3] == 0)
             {
                 MoveForward();
             }
