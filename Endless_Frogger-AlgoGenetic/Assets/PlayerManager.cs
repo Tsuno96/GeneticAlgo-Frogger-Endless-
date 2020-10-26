@@ -8,8 +8,9 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        player.currentCube = 9;
+        int z = Random.Range(0, -10); ;
+        Player player = Instantiate(playerPrefab, new Vector3(0,1,z), Quaternion.identity);
+        player.currentCube = -z;
         player.currentLane = 0;
     }
 

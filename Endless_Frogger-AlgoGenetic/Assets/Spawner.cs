@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
 
     public void SetPath()
     {
-        speed = Random.Range(0.3f, 1f);
+        speed = Random.Range(0.6f, 1f);
         lstPath = new List<Transform>();
 
         if(GetComponent<Lane>().sens == 0)
@@ -32,6 +32,7 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(Random.Range(1f, 10f));
             Vehicule vehicule;
             if (GetComponent<Lane>().sens == 0)
                 vehicule = Instantiate(vehiculePrefab, new Vector3(0, -1, 0), vehiculePrefab.transform.rotation);
