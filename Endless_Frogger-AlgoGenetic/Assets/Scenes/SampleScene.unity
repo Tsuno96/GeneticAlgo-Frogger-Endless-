@@ -276,6 +276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -960050591811004597, guid: 73ef1068fc57a6c44923064404b2c4b3, type: 3}
+  nPlayers: 10
+  maxSteps: 200
+  nDeadPlayers: 0
 --- !u!1 &1554510195
 GameObject:
   m_ObjectHideFlags: 0

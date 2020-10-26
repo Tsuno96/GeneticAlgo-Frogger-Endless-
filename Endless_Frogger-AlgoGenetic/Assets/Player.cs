@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
 
     public Cube[] neighbors;
     public int[] inputs;
-    public int steps;
+
+    int steps;
 
     public Matrix<float> inputLayers;
 
@@ -25,9 +26,8 @@ public class Player : MonoBehaviour
         isDead = false;
         lstLanes = GameObject.FindGameObjectWithTag("LaneGenerator").GetComponent<LaneGenerator>().lstLanes;
         //GetNeighbors();
-        StartCoroutine("MakeDecision");
-
         neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
+        StartCoroutine("MakeDecision");
 
     }
 
@@ -38,9 +38,10 @@ public class Player : MonoBehaviour
     }
     IEnumerator MakeDecision()
     {
+        
         yield return new WaitForSeconds(2f);
 
-        while (currentLane != 10 && steps != 20 && !isDead)
+        while (currentLane != 10 && steps != PlayerManager.instance.maxSteps && !isDead)
         {
             GetNeighbors();
 
@@ -54,8 +55,12 @@ public class Player : MonoBehaviour
 
             steps++;
 
+            if (steps == PlayerManager.instance.maxSteps)
+                PlayerManager.instance.nDeadPlayers++;
+
             yield return new WaitForSeconds(1f);
         }
+
     }
     void GetNeighbors()
     {
@@ -170,7 +175,6 @@ public class Player : MonoBehaviour
     }
     void MoveRight()
     {
-
             transform.position += new Vector3(0, 0, -1);
             currentCube++;
     }
@@ -179,16 +183,18 @@ public class Player : MonoBehaviour
     {
         if (currentCube < 0 || currentCube > 9)
         {
-            Debug.Log("Dead");
+            //Debug.Log("Dead");
             isDead = true;
-            GetComponent<Renderer>().enabled = false;
+            PlayerManager.instance.nDeadPlayers++;
+            gameObject.SetActive(false);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Dead");
+        //Debug.Log("Dead");
         isDead = true;
-        GetComponent<Renderer>().enabled = false;
+        PlayerManager.instance.nDeadPlayers++;
+        gameObject.SetActive(false);
     }
 }
