@@ -26,7 +26,9 @@ public class Player : MonoBehaviour
     }
     IEnumerator MakeDecision()
     {
-        while(currentLane != 10 && steps != 20)
+        yield return new WaitForSeconds(2f);
+
+        while (currentLane != 10 && steps != 20)
         {
             GetNeighbors();
 
