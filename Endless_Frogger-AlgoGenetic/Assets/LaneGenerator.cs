@@ -7,7 +7,7 @@ public class LaneGenerator : MonoBehaviour
     public int nLanes;
     public Lane lanePrefab;
     public List<Lane> lstLanes;
-
+    
     public Vehicule vehiculePrefab;
     // Start is called before the first frame update
     void Awake()
