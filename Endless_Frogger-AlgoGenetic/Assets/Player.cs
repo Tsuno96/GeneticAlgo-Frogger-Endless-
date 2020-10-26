@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics;
+using System;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IComparable<Player>
 {
     public int currentLane;
     public int currentCube;
@@ -36,6 +37,16 @@ public class Player : MonoBehaviour
     {
         
     }
+    public int CompareTo(Player comparePlayer)
+    {
+        // A null value means that this object is greater.
+        if (comparePlayer == null)
+            return 1;
+
+        else
+            return this.currentLane.CompareTo(comparePlayer.currentLane);
+    }
+
     IEnumerator MakeDecision()
     {
         
