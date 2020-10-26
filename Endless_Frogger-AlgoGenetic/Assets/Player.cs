@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MathNet.Numerics.LinearAlgebra;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour
     public Cube[] neighbors;
     public int[] inputs;
     public int steps;
+
+    public Matrix<float> inputLayers;
 
     List<Lane> lstLanes;
     // Start is called before the first frame update
