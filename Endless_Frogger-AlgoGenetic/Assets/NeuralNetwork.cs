@@ -29,7 +29,7 @@ public class NeuralNetwork : MonoBehaviour
 
     //public float fitness;
 
-    private void Initialise(int hiddenLayerCount, int hiddenNeuronCount)
+    public void Initialise(int hiddenLayerCount, int hiddenNeuronCount)
     {
         inputLayer.Clear();
         hiddenLayers.Clear();
@@ -89,7 +89,6 @@ public class NeuralNetwork : MonoBehaviour
 
     public Matrix<float> RunNetwork(int[] inputs)
     {
-        Initialise(2, 4);
 
         for(int i = 0;i<inputs.Length;i++)
             inputLayer[0, i] = inputs[i];

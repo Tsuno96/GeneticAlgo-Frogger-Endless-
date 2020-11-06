@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, System.IComparable<Player>
     public bool isDead;
     List<Lane> lstLanes;
 
-    NeuralNetwork neuralNetwork;
+    public NeuralNetwork neuralNetwork;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +28,22 @@ public class Player : MonoBehaviour, System.IComparable<Player>
         isDead = false;
         lstLanes = GameObject.FindGameObjectWithTag("LaneGenerator").GetComponent<LaneGenerator>().lstLanes;
         //GetNeighbors();
-        neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
+        
+        
         StartCoroutine("MakeDecision");
 
+    }
+
+    public void SetRandomNN()
+    {
+        neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
+        neuralNetwork.Initialise(2, 4);
+    }
+
+    public void SetNN(NeuralNetwork nn)
+    {
+        neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
+        neuralNetwork = nn;
     }
 
     IEnumerator MakeDecision()
