@@ -34,7 +34,7 @@ public class Vehicule : MonoBehaviour
             else
                 Destroy(gameObject);
 
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(speed * LaneGenerator.SpeedCoef);
         }
     }
     

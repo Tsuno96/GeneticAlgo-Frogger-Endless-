@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
     }
     IEnumerator SpawnVehicule()
     {
-        yield return new WaitForSeconds(Random.Range(1f, 10f));
+        yield return new WaitForSeconds(Random.Range(1f, 10f) * LaneGenerator.SpeedCoef);
         while (true)
         {
             Vehicule vehicule;
@@ -41,7 +41,7 @@ public class Spawner : MonoBehaviour
             vehicule.path = lstPath;
             vehicule.speed = speed;
             vehicule.sens = GetComponent<Lane>().sens;
-            yield return new WaitForSeconds(Random.Range(4f, 20f));
+            yield return new WaitForSeconds(Random.Range(4f, 20f) * LaneGenerator.SpeedCoef);
         }
     }
 

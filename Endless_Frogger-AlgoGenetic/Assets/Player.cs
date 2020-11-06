@@ -42,16 +42,15 @@ public class Player : MonoBehaviour, System.IComparable<Player>
 
     public void SetNN(NeuralNetwork nn)
     {
-        neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
         neuralNetwork = nn;
     }
 
     IEnumerator MakeDecision()
     {
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f * LaneGenerator.SpeedCoef);
 
-        while (currentLane != 10 && steps != PlayerManager.instance.maxSteps && !isDead)
+        while (currentLane != lstLanes.Count && steps != PlayerManager.instance.maxSteps && !isDead)
         {
             GetNeighbors();
 
@@ -68,7 +67,7 @@ public class Player : MonoBehaviour, System.IComparable<Player>
             if (steps == PlayerManager.instance.maxSteps)
                 PlayerManager.instance.nDeadPlayers++;
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f * LaneGenerator.SpeedCoef);
         }
 
     }

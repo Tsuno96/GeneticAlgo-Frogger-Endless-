@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
 
     public List<Player> players;
     List<Player> bestPlayers;
+
+    public int generation;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -77,6 +79,7 @@ public class PlayerManager : MonoBehaviour
             players.Add(p);
         }
         Repopulate();
+        generation++;
     }
 
     void Repopulate()
@@ -101,6 +104,9 @@ public class PlayerManager : MonoBehaviour
             }
             while (iParentA == iParentB);
 
+            Player Child1;
+            Player Child2;
+            
             NeuralNetwork nnC1 = new NeuralNetwork();
             NeuralNetwork nnC2 = new NeuralNetwork();
             nnC1.Initialise(2, 4);
@@ -109,37 +115,46 @@ public class PlayerManager : MonoBehaviour
             NeuralNetwork nnPA = bestPlayers[iParentA].neuralNetwork;
             NeuralNetwork nnPB = bestPlayers[iParentB].neuralNetwork;
 
-            if (Random.Range(0.0f, 1.0f) < mutateRate)
+            for(int w = 0; w<nnC1.weights.Count;w++)
             {
-                nnC1.weights = nnPA.weights;
+                if (Random.Range(0.0f, 1.0f) < mutateRate)
+                {
+                    nnC1.weights[w] = nnPA.weights[w];
+                }
+
+                if (Random.Range(0.0f, 1.0f) < mutateRate)
+                {
+                    nnC2.weights[w] = nnPB.weights[w];
+                }
             }
-            if (Random.Range(0.0f, 1.0f) < mutateRate)
+
+            for (int w = 0; w < nnC1.biases.Count; w++)
             {
-                nnC1.biases = nnPB.biases;
-            }
-            if (Random.Range(0.0f, 1.0f) < mutateRate)
-            {
-                nnC2.weights = nnPB.weights;
-            }
-            if (Random.Range(0.0f, 1.0f) < mutateRate)
-            {
-                nnC2.biases = nnPA.biases;
+                if (Random.Range(0.0f, 1.0f) < mutateRate)
+                {
+                    nnC1.biases[w] = nnPB.biases[w];
+                }
+
+                if (Random.Range(0.0f, 1.0f) < mutateRate)
+                {
+                    nnC2.biases[w] = nnPA.biases[w];
+                }
             }
 
             int z = Random.Range(0, -10); ;
-            Player Child1 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
+            Child1 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
             Child1.SetNN(nnC1);
             Child1.currentCube = -z;
             Child1.currentLane = 0;
-            Child1.name = "Child1 " + Random.Range(0, 101);
+            Child1.name = "Child1 " + Random.Range(0, 101)+"GEN"+ generation;
             players.Add(Child1);
 
             z = Random.Range(0, -10); ;
-            Player Child2 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
+            Child2 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
             Child2.SetNN(nnC2);
             Child2.currentCube = -z;
             Child2.currentLane = 0;
-            Child2.name = "Child2 " +Random.Range(0,101);
+            Child2.name = "Child2 " +Random.Range(0,101)+ "GEN" + generation;
             players.Add(Child2);
         }
         else

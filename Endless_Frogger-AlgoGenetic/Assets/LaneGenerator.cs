@@ -7,7 +7,11 @@ public class LaneGenerator : MonoBehaviour
     public int nLanes;
     public Lane lanePrefab;
     public List<Lane> lstLanes;
-    
+
+    public static float SpeedCoef;
+    [Range(0.01f, 1f)]
+    public float pubSpeedCoef;
+
     public Vehicule vehiculePrefab;
     // Start is called before the first frame update
     void Awake()
@@ -30,6 +34,6 @@ public class LaneGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SpeedCoef = pubSpeedCoef;
     }
 }
