@@ -29,8 +29,7 @@ public class Player : MonoBehaviour, System.IComparable<Player>
         steps = 0;
         isDead = false;
         lstLanes = GameObject.FindGameObjectWithTag("LaneGenerator").GetComponent<LaneGenerator>().lstLanes;
-        Color c = new Color(UnityEngine.Random.Range(0f,1.0f), UnityEngine.Random.Range(0f, 1.0f), UnityEngine.Random.Range(0f, 1.0f),0.4f);
-        GetComponent<Renderer>().material.color = c;
+
         //GetNeighbors();
         
         StartCoroutine("MakeDecision");

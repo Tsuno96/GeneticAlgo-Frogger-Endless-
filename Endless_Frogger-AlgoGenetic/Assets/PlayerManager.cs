@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -23,7 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     public List<Player> players;
     List<Player> bestPlayers;
-
+    Color c;
     public int generation;
     // Start is called before the first frame update
     private void Awake()
@@ -55,7 +54,7 @@ public class PlayerManager : MonoBehaviour
     {
         nDeadPlayers = 0;
         players = new List<Player>();
-
+        c = new Color(UnityEngine.Random.Range(0f, 1.0f), UnityEngine.Random.Range(0f, 1.0f), UnityEngine.Random.Range(0f, 1.0f), 0.4f);
         for (int i = 0; i < nPlayers; i++)
         {
             int z = Random.Range(0, -10); ;
@@ -64,6 +63,7 @@ public class PlayerManager : MonoBehaviour
             player.currentCube = -z;
             player.currentLane = 0;
             player.name = "Player" + i;
+            player.GetComponent<Renderer>().material.color = c;
             players.Add(player);
         }
     }
@@ -85,8 +85,9 @@ public class PlayerManager : MonoBehaviour
     void Repopulate()
     {
         int nNewAgent = nPlayers - nBestPlayersSelection;
+        c = new Color(UnityEngine.Random.Range(0f, 1.0f), UnityEngine.Random.Range(0f, 1.0f), UnityEngine.Random.Range(0f, 1.0f), 0.4f);
 
-        for(int i = 0; i< nNewAgent; i+=2)
+        for (int i = 0; i< nNewAgent; i+=2)
         {
             Crossover();
         }
@@ -146,14 +147,17 @@ public class PlayerManager : MonoBehaviour
             Child1.SetNN(nnC1);
             Child1.currentCube = -z;
             Child1.currentLane = 0;
+            Child1.GetComponent<Renderer>().material.color = c;
             Child1.name = "Child1 " + Random.Range(0, 101)+"GEN"+ generation;
             players.Add(Child1);
+
 
             z = Random.Range(0, -10); ;
             Child2 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
             Child2.SetNN(nnC2);
             Child2.currentCube = -z;
             Child2.currentLane = 0;
+            Child2.GetComponent<Renderer>().material.color = c;
             Child2.name = "Child2 " +Random.Range(0,101)+ "GEN" + generation;
             players.Add(Child2);
         }
@@ -176,5 +180,24 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    public void WatchBest()
+    {
+        foreach(Player bp in players)
+        {
+            if(!bestPlayers.Contains(bp))
+            {
+                bp.GetComponent<Renderer>().enabled = false;
+            }
+
+        }
+    }
+    public void WatchAll()
+    {
+        foreach (Player p in players)
+        {
+            p.GetComponent<Renderer>().enabled = true;
+        }
+    }
 
 }
+
