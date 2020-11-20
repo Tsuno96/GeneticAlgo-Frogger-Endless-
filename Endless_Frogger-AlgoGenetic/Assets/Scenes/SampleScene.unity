@@ -245,9 +245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a89d1f8f971d0f24eac5dd11ed6e80d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nLanes: 10
+  nLanes: 100
   lanePrefab: {fileID: 4179377324453115366, guid: 628d3d8418e767248b801e3374068005, type: 3}
   lstLanes: []
+  pubSpeedCoef: 0.108
   vehiculePrefab: {fileID: -7026861226086012600, guid: 81b80a0eff0528a4090da8266faf8f93, type: 3}
 --- !u!4 &1494778324
 Transform:
@@ -276,11 +277,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -960050591811004597, guid: 73ef1068fc57a6c44923064404b2c4b3, type: 3}
-  nPlayers: 10
-  maxSteps: 200
+  mutateRate: 0.8
+  nPlayers: 1000
+  maxSteps: 90
   nDeadPlayers: 0
-  nBestPlayersSelection: 2
+  nBestPlayersSelection: 10
   players: []
+  generation: 0
 --- !u!1 &1554510195
 GameObject:
   m_ObjectHideFlags: 0
