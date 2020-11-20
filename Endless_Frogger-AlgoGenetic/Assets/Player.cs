@@ -21,6 +21,8 @@ public class Player : MonoBehaviour, System.IComparable<Player>
     List<Lane> lstLanes;
 
     public NeuralNetwork neuralNetwork;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,6 @@ public class Player : MonoBehaviour, System.IComparable<Player>
         Color c = new Color(UnityEngine.Random.Range(0f,1.0f), UnityEngine.Random.Range(0f, 1.0f), UnityEngine.Random.Range(0f, 1.0f),0.4f);
         GetComponent<Renderer>().material.color = c;
         //GetNeighbors();
-        
         
         StartCoroutine("MakeDecision");
 
@@ -194,19 +195,18 @@ public class Player : MonoBehaviour, System.IComparable<Player>
     {
         if (currentCube < 0 || currentCube > 9)
         {
-            //Debug.Log("Dead");
-            isDead = true;
-            PlayerManager.instance.nDeadPlayers++;
-            gameObject.SetActive(false);
+            Dead();
+        }
+
+        if(currentLane ==0 && steps >= (PlayerManager.instance.maxSteps *0.33))
+        {
+            Dead();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Dead");
-        isDead = true;
-        PlayerManager.instance.nDeadPlayers++;
-        gameObject.SetActive(false);
+        Dead();
     }
 
     public int CompareTo(Player other)
@@ -228,4 +228,13 @@ public class Player : MonoBehaviour, System.IComparable<Player>
         gameObject.SetActive(true);
         StartCoroutine("MakeDecision");
     }
+
+    void Dead()
+    {
+        isDead = true;
+        PlayerManager.instance.nDeadPlayers++;
+        gameObject.SetActive(false);
+    }
+
+
 }
