@@ -107,26 +107,50 @@ public class PlayerManager : MonoBehaviour
 
             Player Child1;
             Player Child2;
-            
-            NeuralNetwork nnC1 = new NeuralNetwork();
-            NeuralNetwork nnC2 = new NeuralNetwork();
-            nnC1.Initialise(2, 4);
-            nnC2.Initialise(2, 4);
+
+            int z = Random.Range(0, -10); ;
+            Child1 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
+            NeuralNetwork nnC1 = Child1.SetRandomNN();
+            Child1.currentCube = -z;
+            Child1.currentLane = 0;
+            Child1.GetComponent<Renderer>().material.color = c;
+            Child1.name = "Child1 " + Random.Range(0, 101) + "GEN" + generation;
+            players.Add(Child1);
+
+
+            z = Random.Range(0, -10); ;
+            Child2 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
+            NeuralNetwork nnC2 = Child2.SetRandomNN();
+            Child2.currentCube = -z;
+            Child2.currentLane = 0;
+            Child2.GetComponent<Renderer>().material.color = c;
+            Child2.name = "Child2 " + Random.Range(0, 101) + "GEN" + generation;
+            players.Add(Child2);
 
             NeuralNetwork nnPA = bestPlayers[iParentA].neuralNetwork;
             NeuralNetwork nnPB = bestPlayers[iParentB].neuralNetwork;
 
             for(int w = 0; w<nnC1.weights.Count;w++)
             {
-                if (Random.Range(0.0f, 1.0f) < mutateRate)
+                for (int x = 0; x < nnC1.weights[w].RowCount; x++)
                 {
-                    nnC1.weights[w] = nnPA.weights[w];
+
+                    for (int y = 0; y < nnC1.weights[w].ColumnCount; y++)
+                    {
+
+                        if (Random.Range(0.0f, 1.0f) < mutateRate)
+                        {
+                            nnC1.weights[w][x,y] = nnPA.weights[w][x,y];
+                        }
+
+                        if (Random.Range(0.0f, 1.0f) < mutateRate)
+                        {
+                            nnC2.weights[w][x,y] = nnPB.weights[w][x,y];
+                        }
+                    }
+
                 }
 
-                if (Random.Range(0.0f, 1.0f) < mutateRate)
-                {
-                    nnC2.weights[w] = nnPB.weights[w];
-                }
             }
 
             for (int w = 0; w < nnC1.biases.Count; w++)
@@ -142,24 +166,6 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            int z = Random.Range(0, -10); ;
-            Child1 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
-            Child1.SetNN(nnC1);
-            Child1.currentCube = -z;
-            Child1.currentLane = 0;
-            Child1.GetComponent<Renderer>().material.color = c;
-            Child1.name = "Child1 " + Random.Range(0, 101)+"GEN"+ generation;
-            players.Add(Child1);
-
-
-            z = Random.Range(0, -10); ;
-            Child2 = Instantiate(playerPrefab, new Vector3(0, 1, z), Quaternion.identity);
-            Child2.SetNN(nnC2);
-            Child2.currentCube = -z;
-            Child2.currentLane = 0;
-            Child2.GetComponent<Renderer>().material.color = c;
-            Child2.name = "Child2 " +Random.Range(0,101)+ "GEN" + generation;
-            players.Add(Child2);
         }
         else
         {

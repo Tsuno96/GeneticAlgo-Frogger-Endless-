@@ -36,10 +36,12 @@ public class Player : MonoBehaviour, System.IComparable<Player>
 
     }
 
-    public void SetRandomNN()
+    public NeuralNetwork SetRandomNN()
     {
         neuralNetwork = gameObject.AddComponent<NeuralNetwork>();
         neuralNetwork.Initialise(2, 4);
+
+        return neuralNetwork;
     }
 
     public void SetNN(NeuralNetwork nn)
@@ -52,7 +54,7 @@ public class Player : MonoBehaviour, System.IComparable<Player>
         
         yield return new WaitForSeconds(2f * LaneGenerator.SpeedCoef);
 
-        while (currentLane != lstLanes.Count && steps != PlayerManager.instance.maxSteps && !isDead)
+        while (currentLane < lstLanes.Count - 1 && steps != PlayerManager.instance.maxSteps && !isDead)
         {
             GetNeighbors();
 

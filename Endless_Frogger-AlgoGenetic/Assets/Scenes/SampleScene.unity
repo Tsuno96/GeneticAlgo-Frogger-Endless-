@@ -279,9 +279,9 @@ MonoBehaviour:
   playerPrefab: {fileID: -960050591811004597, guid: 73ef1068fc57a6c44923064404b2c4b3, type: 3}
   mutateRate: 0.8
   nPlayers: 1000
-  maxSteps: 90
+  maxSteps: 150
   nDeadPlayers: 0
-  nBestPlayersSelection: 10
+  nBestPlayersSelection: 20
   players: []
   generation: 0
 --- !u!1 &1554510195

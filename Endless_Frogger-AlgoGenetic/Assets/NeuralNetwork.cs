@@ -67,10 +67,8 @@ public class NeuralNetwork : MonoBehaviour
     }
     private void RandomiseWeights()
     {
-
         for (int i = 0; i < weights.Count; i++)
         {
-
             for (int x = 0; x < weights[i].RowCount; x++)
             {
 
@@ -80,11 +78,8 @@ public class NeuralNetwork : MonoBehaviour
                     weights[i][x, y] = Random.Range(-1f, 1f);
 
                 }
-
             }
-
         }
-
     }
 
     public Matrix<float> RunNetwork(int[] inputs)
